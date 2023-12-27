@@ -41,6 +41,18 @@ public class StudentRepository {
             session.delete(student);
         }
     }
+    public boolean delete(int id) throws SQLException {
+        Session session = sessionFactory.getCurrentSession();
+        Student student = session.get(Student.class, id);
+
+        if (student != null) {
+            session.delete(student);
+            return true;  // Successful deletion
+        } else {
+            return false; // Student with the given ID not found
+        }
+    }
+
 
     public void updateStudent(int studentId, Student updatedStudent) throws SQLException {
         Session session = sessionFactory.getCurrentSession();
@@ -53,5 +65,18 @@ public class StudentRepository {
 
         session.update(existingStudent);
     }
+
+//    public void update(Student student) throws SQLException {
+//        Connection connection = dataSource.getConnection();
+//        PreparedStatement preparedStatement = connection.prepareStatement("UPDATE studenttb set name = ?, email = ?, dateOfBirth = ?, gender = ?, quota = ?, country = ? WHERE Id = ?");
+//        preparedStatement.setString(1, student.getName());
+//        preparedStatement.setString(2, student.getEmail());
+//        preparedStatement.setDate(3, Date.valueOf(student.getDateOfBirth()));
+//        preparedStatement.setString(4, student.getGender().toString());
+//        preparedStatement.setString(5, student.getQuota());
+//        preparedStatement.setString(6, student.getCountry());
+//        preparedStatement.setInt(7, student.getId());
+//        preparedStatement.execute();
+//    }
 
 }

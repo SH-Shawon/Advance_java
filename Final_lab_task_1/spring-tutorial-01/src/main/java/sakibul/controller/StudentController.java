@@ -55,7 +55,7 @@ public class StudentController {
             model.addAttribute("quotaOptions", quotaOptions);
             return "studentForm";
         } else {
-            //In this line i add the new student
+            //In this line I add the new student
             studentService.addStudent(student);
 
             //Here, after adding a new student I show all the student along with the new one

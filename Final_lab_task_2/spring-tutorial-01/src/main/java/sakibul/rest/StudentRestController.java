@@ -18,12 +18,12 @@ public class StudentRestController {
         this.studentService = studentService;
     }
 
-    @GetMapping("/students")
+    @GetMapping("/users")
     public List<Student> getStudents() throws SQLException {
         return studentService.getAllStudent();
     }
 
-    @GetMapping("/students/{id}")
+    @GetMapping("/users/{id}")
     public Student getStudentById(@PathVariable("id") Integer id) throws SQLException {
         Student student = studentService.getStudentById(id);
         if (student != null) {
@@ -33,7 +33,7 @@ public class StudentRestController {
         }
     }
 
-    @DeleteMapping("/student/{id}")
+    @DeleteMapping("/users/{id}")
     public String deleteStudent(@PathVariable("id") int id) throws SQLException {
         if (studentService.delete(id)) {
             return "Successful";
@@ -42,7 +42,12 @@ public class StudentRestController {
         }
     }
 
-    @PostMapping("/student")
+    @GetMapping("/users/count")
+    public String getStudentCount() throws SQLException {
+        return String.valueOf((long) studentService.getAllStudent().size());
+    }
+
+    @PostMapping("/users")
     public String createStudent(@Valid @RequestBody Student student, BindingResult bindingResult) throws SQLException {
         if (bindingResult.hasErrors()) {
             return "Unsuccessful";
@@ -52,7 +57,7 @@ public class StudentRestController {
         }
     }
 
-    @PutMapping("/student/{studentId}")
+    @PutMapping("/users/{studentId}")
     public String updateStudent(@PathVariable int studentId, @Valid @ModelAttribute("student") Student updatedStudent, BindingResult bindingResult) {
         System.out.println("Binding Result Errors: " + bindingResult.getAllErrors());
         if (bindingResult.hasErrors()) {
